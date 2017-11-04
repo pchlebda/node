@@ -45,6 +45,32 @@ app.get('/tours/request-group-rate', function (req, res) {
     res.render('tours/request-group-rate');
 });
 
+app.get('/headers', function (req, res) {
+    res.set('Content-Type', 'text/plain');
+    var s = '';
+    for (var name in req.headers) {
+        s += name + ': ' + req.headers[name] + '\n';
+    }
+    res.send(s);
+});
+
+app.get('/greeting', function (req, res) {
+    res.render('about', {
+        message: 'welcome',
+        style: req.query.style,
+        userid: req.cookie.userid,
+        username: req.session.username
+    });
+});
+
+
+app.get('/no-layout', function (req, res) {
+    res.render('no-layout', { layout: 'custom' });
+});
+
+app.get('custom-layout', function (req, res) {
+    res.render('custom-laout', { layout: 'custom' });
+});
 
 app.use(function (req, res, next) {
     res.status(404);
